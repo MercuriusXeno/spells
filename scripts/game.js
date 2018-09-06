@@ -688,8 +688,10 @@ function updateDurations() {
 function spellUpgTooltips(idPrefix, spellName) {
 	spell = game.spells[spellName];
 	//Power, then Duration, then Cost
-	document.getElementById(idPrefix + "PowerUpg").setAttribute('ach-tooltip', "Power -> " + formatValue(spell.power + spell.powerPos) + "\nDuration -> " + formatTime(spell.duration - spell.durationNeg) + "\nCost: " + formatValue(spell.powerCost) + " coins");
-	document.getElementById(idPrefix + "DurationUpg").setAttribute('ach-tooltip', "Duration -> " + formatTime(spell.duration + spell.durationPos) + "\nMana cost -> " + formatValue(spell.cost + spell.costNeg) + "\nCost: " + formatValue(spell.durationCost) + " coins");
+	var powerEfficiency = (spell.power + spell.powerPos) * (spell.duration - spell.durationNeg);
+	var durationEfficiency = (spell.power) * (spell.duration + spell.durationPos);
+	document.getElementById(idPrefix + "PowerUpg").setAttribute('ach-tooltip', "Power -> " + formatValue(spell.power + spell.powerPos) + "\nDuration -> " + formatTime(spell.duration - spell.durationNeg) + "\nEfficiency: " + formatValue(powerEfficiency) + "\nCost: " + formatValue(spell.powerCost) + " coins");
+	document.getElementById(idPrefix + "DurationUpg").setAttribute('ach-tooltip', "Duration -> " + formatTime(spell.duration + spell.durationPos) + "\nMana cost -> " + formatValue(spell.cost + spell.costNeg) + "\nEfficiency: " + formatValue(durationEfficiency)  + "\nCost: " + formatValue(spell.durationCost) + " coins");
 	document.getElementById(idPrefix + "CostUpg").setAttribute('ach-tooltip', "Mana cost -> " + formatValue(spell.cost - spell.costPos) + "\nCost: " + formatValue(spell.costCost) + " coins");
 }
 
